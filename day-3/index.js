@@ -47,28 +47,30 @@ const firstHalf = () => {
     return totalPriority;
 }
 
-// console.log(firstHalf());
+console.log(firstHalf());
 
 //Second half of the puzzle
 const secondHalf = () => {
-    let rucksackIndex = 0;
-    let groupIndex = 0;
-    let singleGroup = [];
     let totalPriority = 0;
     const rucksackTab = [];
     const errorTab = [];
 
+    let rucksackIndex = 0;
+    let groupIndex = 0;
+    let singleGroup = []
+
     data.forEach(rucksack => {
-        if (rucksackIndex <= 2) {
-            singleGroup[rucksackIndex] = rucksack;
+        singleGroup[rucksackIndex] = rucksack;
+
+        if (rucksackIndex < 2) {
             rucksackIndex++;
         } else {
+            rucksackIndex = 0;
             rucksackTab[groupIndex] = singleGroup;
             singleGroup = [];
             groupIndex++;
-            singleGroup[0];
-            rucksackIndex = 0;
         }
+
     });
 
     const lookForError = (rucksackX, rucksackY, rucksackZ) => {
@@ -80,11 +82,11 @@ const secondHalf = () => {
         rucksackX.forEach(itemTypeX => {
             rucksackY.forEach(itemTypeY => {
                 rucksackZ.forEach(itemTypeZ => {
-                    if (itemTypeX === itemTypeY) duplicatedItem += itemTypeX;
+                    if (itemTypeX === itemTypeY && itemTypeY === itemTypeZ && itemTypeX === itemTypeZ)
+                        duplicatedItem += itemTypeX;
                 });
             });
         });
-
 
         return duplicatedItem[0];
     }
